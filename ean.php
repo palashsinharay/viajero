@@ -59,7 +59,6 @@ class ean {
         /*
          * funtion to get the list of hotels
          */
-			
 	function HotelLists($arrayInfo){
             
             $city = $arrayInfo['city'];
@@ -115,11 +114,40 @@ class ean {
             $cacheKey = trim($arrayInfo['cacheKey']);
             $cacheLocation = trim($arrayInfo['cacheLocation']);
             
-            $str = "http://api.ean.com/ean-services/rs/hotel/v3/list?minorRev=21&cid=".$this->cid."&apiKey=".$this->apiKey."&customerUserAgent=".$customerUserAgent."customerIpAddress=".$customerIpAddress."&customerSessionId=".$customerSessionId."&locale=".$this->local."&currencyCode=".$this->currency."&cacheKey=".$cacheKey."&cacheLocation=".$cacheLocation;
+            $str = "http://api.ean.com/ean-services/rs/hotel/v3/list?minorRev=21&cid=".$this->cid.
+                    "&apiKey=".$this->apiKey.
+                    "&customerUserAgent=".$customerUserAgent.
+                    "customerIpAddress=".$customerIpAddress.
+                    "&customerSessionId=".$customerSessionId.
+                    "&locale=".$this->local.
+                    "&currencyCode=".$this->currency.
+                    "&cacheKey=".$cacheKey.
+                    "&cacheLocation=".$cacheLocation;
             
             return $this->apiCall($str);
             
             
+        }
+        
+        /*
+         * function to get hoteldetails 
+         */
+        function HotelDetails($arrayInfo) {
+            //TODO
+        }
+        
+        /*
+         * function to get hotel room Availability
+         */
+        function HotelRoomAvailability($arrayInfo){
+            //TODO
+        }
+        
+        /*
+         * function to get hotel room Reservation
+         */
+        function HotelRoomReservation($arrayInfo) {
+            //TODO
         }
 
 	
