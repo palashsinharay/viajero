@@ -144,9 +144,15 @@ class ean {
         }
         
         /*
-         * function to get hotel room Reservation
+         * function to book hotel room Reservation
          */
         function HotelRoomReservation($arrayInfo) {
+            //TODO
+        }
+        /*
+         * function to cancel hotel room Booking
+         */
+        function HotelRoomCancellation($arrayInfo) {
             //TODO
         }
 
