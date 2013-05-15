@@ -40,6 +40,7 @@ print_r($arrayInfo['hotelIds']);
 foreach ($arrayInfo['hotelIds'] as $value) {
     $arrayInfo['hotelId'] = $value; 
     $data['hotelDetail_'.$value] = $EAN->HotelDetails($arrayInfo);
-    print_r($data['hotelDetail_'.$value]);
+    $data['hotelRoomAvailability_'.$value] = $EAN->HotelRoomAvailability($arrayInfo);
+    print_r($data['hotelRoomAvailability_'.$value]);
 }
 ?>

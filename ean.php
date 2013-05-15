@@ -68,8 +68,8 @@ class ean {
             
             $curlinfo = curl_getinfo($ch); 
             
-            //echo "<pre>";
-            //print_r($curlinfo);
+//            echo "<pre>";
+//            print_r($curlinfo);
             
             if(array_key_exists('EanWsError',$response)){
                 echo "<pre>";
@@ -160,15 +160,14 @@ class ean {
          * function to get hoteldetails 
          */
         function HotelDetails($arrayInfo) {
-            //TODO
-            //print_r($arrayInfo);
+            
             $hotelId = trim($arrayInfo['hotelId']);
             $customerSessionId = trim($arrayInfo['customerSessionId']);
             
             $str = "http://api.ean.com/ean-services/rs/hotel/v3/info?minorRev=21&cid=".$this->cid.
                     "&apiKey=".$this->apiKey.
                     "&customerUserAgent=".$this->customerUserAgent.
-                    "customerIpAddress=".$this->customerIpAddress.
+                    "&customerIpAddress=".$this->customerIpAddress.
                     "&customerSessionId=".$customerSessionId.
                     "&locale=".$this->local.
                     "&currencyCode=".$this->currency.
@@ -183,6 +182,24 @@ class ean {
          */
         function HotelRoomAvailability($arrayInfo){
             //TODO
+            $hotelId = trim($arrayInfo['hotelId']);
+            $customerSessionId = trim($arrayInfo['customerSessionId']);
+            $checkIn = $arrayInfo['checkIn'];
+            $checkOut = $arrayInfo['checkOut'];
+            $rooms = $arrayInfo['rooms'];
+            
+            $str = "http://api.ean.com/ean-services/rs/hotel/v3/avail?minorRev=21&cid=".$this->cid.
+                    "&apiKey=".$this->apiKey.
+                    "&customerUserAgent=".$this->customerUserAgent.
+                    "&customerIpAddress=".$this->customerIpAddress.
+                    "&customerSessionId=".$customerSessionId.
+                    "&locale=".$this->local.
+                    "&currencyCode=".$this->currency.
+                    "&hotelId=".$hotelId.
+                    "&arrivalDate=".$checkIn.
+                    "&departureDate=".$checkOut.
+                    "&includeDetails=true&includeRoomImages=true&".$rooms;
+            return $this->apiCall($str);
         }
         
         /*
