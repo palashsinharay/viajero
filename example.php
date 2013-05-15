@@ -24,11 +24,22 @@ $arrayInfo['sort'] = "QUALITY";
 $data['hotelListPage_'.$arrayInfo['city']] = $EAN->HotelLists($arrayInfo);
 
 $arrayInfo['customerSessionId'] = $data['hotelListPage_'.$arrayInfo['city']]['HotelListResponse']['customerSessionId'];
-$arrayInfo['cacheKey'] = $data['hotelListPage_'.$arrayInfo['city']]['HotelListResponse']['cacheKey'];
-$arrayInfo['cacheLocation'] = $data['hotelListPage_'.$arrayInfo['city']]['HotelListResponse']['cacheLocation'];
+//$arrayInfo['cacheKey'] = $data['hotelListPage_'.$arrayInfo['city']]['HotelListResponse']['cacheKey'];
+//$arrayInfo['cacheLocation'] = $data['hotelListPage_'.$arrayInfo['city']]['HotelListResponse']['cacheLocation'];
+//
+//$data['hotelListPage_'.$arrayInfo['city'].'2'] = $EAN->HotelListsMore($arrayInfo);
+foreach ($data['hotelListPage_'.$arrayInfo['city']]['HotelListResponse']['HotelList']['HotelSummary'] as $key => $value) {
+    $arrayInfo['hotelIds'][] = $value['hotelId'];
+}
 
-$data['hotelListPage_'.$arrayInfo['city'].'2'] = $EAN->HotelListsMore($arrayInfo);
+
 
 echo "<pre>";
-print_r($data);
+//print_r($data);
+print_r($arrayInfo['hotelIds']);
+foreach ($arrayInfo['hotelIds'] as $value) {
+    $arrayInfo['hotelId'] = $value; 
+    $data['hotelDetail_'.$value] = $EAN->HotelDetails($arrayInfo);
+    print_r($data['hotelDetail_'.$value]);
+}
 ?>

@@ -29,12 +29,16 @@ class ean {
 	public  $apiKey;
 	public  $local;
 	public  $currency;
+        public  $customerUserAgent;
+        public  $customerIpAddress;
 	
 	public function __construct($_cid = '55505' ,$_apiKey = "38rwz7wgs2x2jt8qt2twq3cb" ,$_local = "en_US",$_currency = "USD"){
         $this->cid = $_cid;
 	$this->apiKey = $_apiKey;
 	$this->local = $_local;
 	$this->currency = $_currency;
+        $this->customerUserAgent = trim($_SERVER['HTTP_USER_AGENT']);
+        $this->customerIpAddress = trim($_SERVER['REMOTE_ADDR']);
 	
 	}
         
@@ -132,16 +136,15 @@ class ean {
          * function to get hotelList more page
          */
         function HotelListsMore($arrayInfo){
-            $customerUserAgent = trim($_SERVER['HTTP_USER_AGENT']);
-            $customerIpAddress = trim($_SERVER['REMOTE_ADDR']);
+            
             $customerSessionId = trim($arrayInfo['customerSessionId']);
             $cacheKey = trim($arrayInfo['cacheKey']);
             $cacheLocation = trim($arrayInfo['cacheLocation']);
             
             $str = "http://api.ean.com/ean-services/rs/hotel/v3/list?minorRev=21&cid=".$this->cid.
                     "&apiKey=".$this->apiKey.
-                    "&customerUserAgent=".$customerUserAgent.
-                    "customerIpAddress=".$customerIpAddress.
+                    "&customerUserAgent=".$this->customerUserAgent.
+                    "customerIpAddress=".$this->customerIpAddress.
                     "&customerSessionId=".$customerSessionId.
                     "&locale=".$this->local.
                     "&currencyCode=".$this->currency.
@@ -158,6 +161,21 @@ class ean {
          */
         function HotelDetails($arrayInfo) {
             //TODO
+            //print_r($arrayInfo);
+            $hotelId = trim($arrayInfo['hotelId']);
+            $customerSessionId = trim($arrayInfo['customerSessionId']);
+            
+            $str = "http://api.ean.com/ean-services/rs/hotel/v3/info?minorRev=21&cid=".$this->cid.
+                    "&apiKey=".$this->apiKey.
+                    "&customerUserAgent=".$this->customerUserAgent.
+                    "customerIpAddress=".$this->customerIpAddress.
+                    "&customerSessionId=".$customerSessionId.
+                    "&locale=".$this->local.
+                    "&currencyCode=".$this->currency.
+                    "&hotelId=".$hotelId.
+                    "&options=0";
+            
+            return $this->apiCall($str);
         }
         
         /*
