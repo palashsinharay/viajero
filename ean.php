@@ -90,6 +90,7 @@ class ean {
 	function HotelLists($arrayInfo){
             
             $city = $arrayInfo['city'];
+            $cityId = $arrayInfo['cityId'];
             $countryCode = $arrayInfo['countryCode'];
             $checkIn = $arrayInfo['checkIn'];
             $checkOut = $arrayInfo['checkOut'];
@@ -117,6 +118,7 @@ class ean {
                     '&apiKey='.$this->apiKey.'&customerSessionId&customerUserAgent&customerIpAddress&locale='.$this->local.
                     '&currencyCode='.$this->currency.
                     '&destinationString='.$city.
+                    '&destinationId='.$cityId.
                     '&countryCode='.$countryCode.
                     '&propertyCategory='.$propertyCategory.
                     '&amenities='.$amenities.
@@ -211,8 +213,33 @@ class ean {
         /*
          * function to cancel hotel room Booking
          */
+        
         function HotelRoomCancellation($arrayInfo) {
             //TODO
+        }
+        
+        function LocationInfo($arrayInfo) {
+            
+            //TODO
+            $city = $arrayInfo["city"];
+            
+            $customerSessionId = '';
+            $address = '';
+            $stateProvinceCode = '';
+            $countryCode = $arrayInfo['countryCode'];
+            
+             $str = "http://api.ean.com/ean-services/rs/hotel/v3/geoSearch?minorRev=21&cid=".$this->cid.
+                    "&apiKey=".$this->apiKey.
+                    "&customerUserAgent=".$this->customerUserAgent.
+                    "&customerIpAddress=".$this->customerIpAddress.
+                    "&customerSessionId=".$customerSessionId.
+                    "&locale=".$this->local.
+                    "&currencyCode=".$this->currency.
+                    "&address=".$address.
+                    "&city=".$city.
+                    "&stateProvinceCode=".$stateProvinceCode.
+                    "&countryCode=".$countryCode;
+            return $this->apiCall($str);
         }
 
 	
